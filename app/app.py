@@ -120,9 +120,26 @@ if st.button("Predict Yield"):
 
     st.success("Prediction Completed")
 
-    st.metric(
-        label="🌾 Predicted Yield",
-        value=f"{prediction:.2f}"
+    col_a, col_b = st.columns(2)
+
+    with col_a:
+        st.metric(
+            label="🌾 Predicted Yield (tonnes/hectare)",
+            value=f"{prediction:.2f}"
+        )
+
+    with col_b:
+        total_production = prediction * area
+        st.metric(
+            label="📦 Estimated Total Production (tonnes)",
+            value=f"{total_production:.2f}"
+        )
+
+    st.info(
+        f"For **{area} hectares** of **{crop}** in **{district}, {state}** "
+        f"during **{season} {crop_year}**, the model predicts a yield of "
+        f"**{prediction:.2f} tonnes per hectare**, giving an estimated total "
+        f"production of **{total_production:.2f} tonnes**."
     )
 
 # Footer
